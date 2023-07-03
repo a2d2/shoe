@@ -2,13 +2,19 @@ import { Stats, OrbitControls, Circle, Environment } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useControls } from 'leva';
 
 function Env() {
+  const { height, radius, scale } = useControls('Ground', {
+    height: { value: 10, min: 0, max: 1 },
+    radius: { value: 115, min: 0, max: 1 },
+    scale: { value: 100, min: 0, max: 1 },
+  });
   return (
     <Environment
       files="./img/neon_photostudio_1k.hdr"
       background
-      ground={{ height: 10, radius: 115, scale: 100 }}
+      ground={{ height: height, radius: radius, scale: scale }}
       //blur={0.9}
     />
   );
@@ -32,7 +38,8 @@ export default function App() {
         {/* <Circle args={[10]} rotation-x={-Math.PI / 2} receiveShadow>
           <meshStandardMaterial />
         </Circle> */}
-        <OrbitControls target={[0, 1, 0]} autoRotate />
+        {/* <OrbitControls target={[0, 1, 0]} autoRotate /> */}
+        <OrbitControls target={[0, 1, 0]} />
         <axesHelper args={[5]} />
         <Stats />
       </Canvas>
