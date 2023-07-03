@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Stats, OrbitControls, Circle, Environment } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { useLoader } from '@react-three/fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-function App() {
-  const [count, setCount] = useState(0)
+function Env() {
+  return (
+    <Environment
+      files="./img/neon_photostudio_1k.hdr"
+      background
+      ground={{ height: 10, radius: 115, scale: 100 }}
+      //blur={0.9}
+    />
+  );
+}
+export default function App() {
+  const gltf = useLoader(GLTFLoader, './models/scene.glb');
+  // console.log(gltf);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* <Canvas camera={{ position: [-0.5, 1, 2] }} shadows> */}
+      <Canvas camera={{ position: [-0.5, 1, 2] }}>
+        {/* <Environment preset="forest" background blur={0.9} /> */}
+        <Env />
+        {/* <directionalLight position={[3.3, 1.0, 4.4]} intensity={1} castShadow /> */}
+        <primitive
+          object={gltf.scene}
+          position={[0, 0, 0]}
+          // children-0-castShadow
+        />
+        {/* <Circle args={[10]} rotation-x={-Math.PI / 2} receiveShadow>
+          <meshStandardMaterial />
+        </Circle> */}
+        <OrbitControls target={[0, 1, 0]} autoRotate />
+        <axesHelper args={[5]} />
+        <Stats />
+      </Canvas>
     </>
-  )
+  );
 }
-
-export default App
