@@ -14,14 +14,14 @@ function Env() {
     <Environment
       files="./img/neon_photostudio_1k.hdr"
       background
-      ground={{ height: height, radius: radius, scale: scale }}
-      //blur={0.9}
+      // ground={{ height: height, radius: radius, scale: scale }}
+      blur={0.9}
     />
   );
 }
 export default function App() {
-  const gltf = useLoader(GLTFLoader, './models/scene1.glb');
-  // console.log(gltf);
+  const gltf = useLoader(GLTFLoader, './models/libreta.glb');
+  console.log(gltf);
 
   return (
     <>
