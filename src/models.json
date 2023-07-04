@@ -1,0 +1,5 @@
+{
+  "hammer": "./models/libreta.glb",
+  "drill": "./models/libreta2.glb",
+  "tapeMeasure": "./models/libreta4.glb"
+}
