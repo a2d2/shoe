@@ -1,19 +1,16 @@
 html,
 body,
 #root {
-  height: 100%;
   margin: 0;
-  background: #000000;
+  padding: 0;
+  width: 100vw;
+  height: 100vw;
 }
-
-#info {
-  position: absolute;
-  top: 60px;
-  left: 10px;
-  background: #181c20;
-  color: #8c92a4;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 32px;
-  pointer-events: none;
+body {
+  background: white;
+  display: flex;
+  justify-content: center;
+}
+#root {
+  width: 100ch;
 }

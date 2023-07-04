@@ -1,98 +1,129 @@
+import { Canvas, useFrame } from '@react-three/fiber';
 import {
-  Stats,
   OrbitControls,
   Environment,
   ContactShadows,
+  SpotLight,
 } from '@react-three/drei';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Leva, useControls } from 'leva';
-
-function Model() {
-  const { scene } = useLoader(GLTFLoader, './models/libreta2.glb');
-  console.log(scene);
-  const {
-    x,
-    y,
-    z,
-    visible,
-    color,
-    // metalness,
-    // roughness,
-    // clearcoat,
-    // clearcoatRoughness,
-    // transmission,
-    // ior,
-    // thickness,
-  } = useControls('Suzanne', {
-    x: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-    y: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-    z: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-    visible: true,
-    color: { value: '#00ff00' },
-    // metalness: { value: 0, min: 0, max: 1.0, step: 0.01 },
-    // roughness: { value: 0, min: 0, max: 1.0, step: 0.01 },
-    // clearcoat: { value: 1, min: 0, max: 1.0, step: 0.01 },
-    // clearcoatRoughness: { value: 0, min: 0, max: 1.0, step: 0.01 },
-    // transmission: { value: 1.0, min: 0, max: 1.0, step: 0.01 },
-    // ior: { value: 1.74, min: 1, max: 5, step: 0.01 },
-    // thickness: { value: 3.12, min: 0, max: 5, step: 0.01 },
-  });
-
-  return (
-    <primitive
-      object={scene}
-      children-5-rotation={[x, y, z]}
-      children-5-visible={visible}
-      children-5-children-0-children-0-children-0-children-1-children-4-material-color={
-        color
-      }
-      //children-5-material-metalness={metalness}
-      // children-0-material-roughness={roughness}
-      // children-0-material-clearcoat={clearcoat}
-      // children-0-material-clearcoatRoughness={clearcoatRoughness}
-      // children-0-material-transmission={transmission}
-      // children-0-material-ior={ior}
-      // children-0-material-thickness={thickness}
-    />
-  );
-}
-
-function Env() {
-  const { height, radius, scale } = useControls('Ground', {
-    height: { value: 10, min: 0, max: 100, step: 1 },
-    radius: { value: 115, min: 0, max: 1000, step: 1 },
-    scale: { value: 100, min: 0, max: 1000, step: 1 },
-  });
-  return (
-    <Environment
-      preset="sunset"
-      background
-      // ground={{
-      //   height: height,
-      //   radius: radius,
-      //   scale: scale,
-      // }}
-      blur={0.9}
-    />
-  );
-}
+import { useGLTF } from '@react-three/drei';
+import { useRef } from 'react';
+// import { Model } from './libreta4';
 
 export default function App() {
+  function Model(props) {
+    // const ref = useRef();
+    const { nodes, materials } = useGLTF('./models/libreta.glb');
+    // useFrame((state) => {
+    //   const t = state.clock.getElapsedTime();
+    //   ref.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5));
+    //   ref.current.rotation.x = Math.cos(t / 4) / 8;
+    //   ref.current.rotation.y = Math.sin(t / 4) / 8;
+    //   ref.current.position.y = (0.2 + Math.sin(t / 1.5)) / 10;
+    // }, []);
+    return (
+      // <group ref={ref} {...props} dispose={null}>
+      <group {...props} dispose={null}>
+        <group position={[-0.064, -0.021, 0.034]} scale={0.007}>
+          <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Elástico(3DC1EE99-2D33-4495-8223-4BAA1260D758)'].geometry
+              }
+              material={materials.Material_2}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Front(05DAA8E6-C7CF-4657-92E9-EFD8F0005F06)'].geometry
+              }
+              material={materials.Material_0}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Front(077A05E9-2BD8-4B62-9B01-3387C604942A)'].geometry
+              }
+              material={materials.Material_0}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Front(119D16D1-4942-4A52-BD6A-DE874BB8F32D)'].geometry
+              }
+              material={materials.Material_0}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Front(3D83D045-8E56-4D70-886D-367F1D6F039B)'].geometry
+              }
+              material={materials.Material_0}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Front(5F1CFF6C-5BCC-450C-B831-39FC12063F55)'].geometry
+              }
+              material={materials.Material_0}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Front(78DF5E49-7C38-4F8F-A4C5-0D7C24FFB800)'].geometry
+              }
+              material={materials.Material_0}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Hojas(A52FF521-4CE0-45A5-BBB4-5174DAD361D2)'].geometry
+              }
+              material={materials.Material_1}
+            />
+          </group>
+        </group>
+      </group>
+    );
+  }
+
   return (
-    <>
-      <Canvas camera={{ position: [-8, 5, 8] }}>
-        <Env />
-        <Model />
-        {/* <ContactShadows
-          scale={150}
-          position={[0.33, -0.33, 0.33]}
-          opacity={1.5}
-        /> */}
-        <OrbitControls target={[0, 1, 0]} maxPolarAngle={Math.PI / 2} />
-        <Stats />
-      </Canvas>
-      <Leva collapsed />
-    </>
+    <Canvas shadows camera={{ position: [0, 0, 4], fov: 60 }}>
+      <ambientLight intensity={1} />
+
+      <Model />
+      {/* <Environment preset="forest" /> */}
+      {/* <SpotLight
+        intensity={1}
+        angle={0.1}
+        penumbra={1}
+        position={[10, 15, 10]}
+        castShadow
+      /> */}
+
+      <ContactShadows
+        position={[0, -0.2, 0]}
+        color="#ffffff"
+        opacity={1}
+        scale={10}
+        blur={1.5}
+        far={1.2}
+      />
+
+      <OrbitControls
+        // minPolarAngle={Math.PI / 2}
+        maxPolarAngle={Math.PI}
+        // enableZoom={false}
+        // enablePan={false}
+      />
+    </Canvas>
   );
 }
