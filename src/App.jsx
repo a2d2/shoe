@@ -6,13 +6,16 @@ import {
   SpotLight,
 } from '@react-three/drei';
 import { useGLTF } from '@react-three/drei';
-import { useRef } from 'react';
+import Floor from './Floor';
+import Lights from './Lights';
+
 // import { Model } from './libreta4';
 
 export default function App() {
   function Model(props) {
     // const ref = useRef();
-    const { nodes, materials } = useGLTF('./models/libreta.glb');
+    const { nodes, materials } = useGLTF('./models/libreta5.glb');
+
     // useFrame((state) => {
     //   const t = state.clock.getElapsedTime();
     //   ref.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5));
@@ -20,6 +23,7 @@ export default function App() {
     //   ref.current.rotation.y = Math.sin(t / 4) / 8;
     //   ref.current.position.y = (0.2 + Math.sin(t / 1.5)) / 10;
     // }, []);
+
     return (
       // <group ref={ref} {...props} dispose={null}>
       <group {...props} dispose={null}>
@@ -97,10 +101,11 @@ export default function App() {
 
   return (
     <Canvas shadows camera={{ position: [0, 0, 4], fov: 60 }}>
-      <ambientLight intensity={1} />
+      {/* <Lights /> */}
+      <ambientLight intensity={0.5} />
 
+      <Environment preset="forest" />
       <Model />
-      {/* <Environment preset="forest" /> */}
       {/* <SpotLight
         intensity={1}
         angle={0.1}
@@ -108,16 +113,16 @@ export default function App() {
         position={[10, 15, 10]}
         castShadow
       /> */}
-
       <ContactShadows
         position={[0, -0.2, 0]}
         color="#ffffff"
-        opacity={1}
+        opacity={1.5}
         scale={10}
-        blur={1.5}
+        blur={1.0}
         far={1.2}
       />
-
+      {/* <Floor /> */}
+      <axesHelper args={[5]} />
       <OrbitControls
         // minPolarAngle={Math.PI / 2}
         maxPolarAngle={Math.PI}
